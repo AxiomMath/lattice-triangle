@@ -1,0 +1,600 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\C}{\mathrm{C}}
+
+
+\begin{document}
+
+\section{Definition and Notation}
+We fix some notation for studying an obtuse regime away from the boundary.
+
+\subsection*{Truncated obtuse region}
+Fix $\eta\in(0,1/6)$. For $n\ge 1$, define the set of integer pairs
+\begin{equation}\label{eq:Hn}
+\mathcal H_n(\eta):=\{(p,q)\in\mathbb Z^2:\ \eta n\le p,q,\ \ p+q<\tfrac{n}{2},\ \gcd(p,q,n)=1\}.
+\end{equation}
+The \emph{hard window} corresponds to the subregion where additionally $p+q\ge \tfrac{n}{3}$.
+
+\subsection*{Largest prime divisor}
+Fix notation as follows. Let $P:=P^+(n)$ be the largest prime divisor of $n$, and write
+\[
+n=P^{\alpha}m,\qquad \alpha:=v_P(n)\ge 1,\qquad \gcd(P,m)=1.
+\]
+
+\subsection*{Least nonnegative residue}
+Write $[x]_n$ for the least nonnegative residue of $x$ modulo $n$.
+We also let
+\begin{equation}
+U_n:=\{a\in\{1,2,\dots,n\}:\ \gcd(a,n)=1\}
+\end{equation}
+be the reduced residue system modulo $n$.
+Furthermore, a unit $a\in U_n$ is called \emph{usable} if
+\[
+2a\not\equiv 2\pmod n.
+\]
+
+
+\subsection*{A counting function}
+
+We define a counting function $S(p,q)$ that tracks the number of units $a$ for which $[ap]_n$ and $[aq]_n$ are simultaneously small.
+
+We define the indicator of the interval $I_m:=\{1,2,\dots,m\}\subset\Z/n\Z$ by
+\[
+1_{I_m}(x):=
+\begin{cases}
+1,& 1\le [x]_n\le m,\\
+0,& \text{otherwise.}
+\end{cases}
+\]
+For $(p,q)\in\mathcal{H}_n(\eta)$, we define
+\[
+m_p:=2p-1\qquad and \qquad m_q:=2q-1,
+\]
+and the counting function (using indicator functions)
+\begin{equation}
+\label{eq:Sdef}
+S(p,q):=\sum_{a\in U_n} 1_{I_{m_p}}(ap)\,1_{I_{m_q}}(aq).
+\end{equation}
+In the hard window, we have $m_p,m_q<n$.
+
+Intuitively, $S(p,q)$ counts the number of units $a$ such that simultaneously
+$$[ap]_n<2p \qquad \text{and}\qquad [aq]_n<2q.$$
+
+
+\section{Fourier expansion and Ramanujan sums}\label{Section3}
+
+We begin by establishing the required estimates for the Fourier coefficients of the indicator functions of short intervals.
+
+\subsection{Discrete Fourier coefficients of short intervals}
+
+For a function $f:\Z/n\Z\to\C$, define its (normalized) Fourier coefficients
+\[
+\widehat{f}(k):=\frac{1}{n}\sum_{x=0}^{n-1} f(x)\e^{-2\pi i kx/n},
+\qquad k\in\{0,1,\dots,n-1\}.
+\]
+Then classical Fourier inversion gives 
+\[
+f(x)=\sum_{k=0}^{n-1} \widehat{f}(k)\e^{2\pi i kx/n}.
+\]
+
+\begin{lemma}[Fourier coefficients of an interval]
+\label{lem:intervalFourier}
+If $m\in\{1,2,\dots,n-1\}$ and $f=1_{I_m}$, then
+ $\widehat{f}(0)=m/n$, and for $k\not\equiv 0\pmod n$ we have
+\[
+|\widehat{f}(k)|\le \frac{1}{2\,\min(k,n-k)}.
+\]
+In particular, we have
+\[
+\sum_{k=0}^{n-1}|\widehat{f}(k)|\le 1+\log n.
+\]
+\end{lemma}
+
+\begin{proof}
+The formula for $\widehat{f}(0)$ is immediate.
+For $k\ne 0$, we have
+\[
+\widehat{f}(k)=\frac{1}{n}\sum_{x=1}^m \e^{-2\pi i kx/n}
+= \frac{1}{n}\cdot \e^{-2\pi i k/n}\cdot \frac{1-\e^{-2\pi i km/n}}{1-\e^{-2\pi i k/n}}.
+\]
+Thus, we have
+\[
+|\widehat{f}(k)|\le \frac{1}{n}\cdot \frac{2}{|1-\e^{-2\pi i k/n}|}
+= \frac{1}{n}\cdot \frac{1}{|\sin(\pi k/n)|}.
+\]
+Using $|\sin x|\ge \frac{2}{\pi}\min(x,\pi-x)$ on $[0,\pi]$ gives
+\[
+|\sin(\pi k/n)|\ge \frac{2}{\pi}\cdot \frac{\pi}{n}\min(k,n-k)=\frac{2}{n}\min(k,n-k),
+\]
+so
+\[
+|\widehat{f}(k)|\le \frac{1}{2\,\min(k,n-k)}.
+\]
+Summing this bound over $k$ and pairing $k$ with $n-k$ gives
+\[
+\sum_{k=1}^{n-1}\frac{1}{2\,\min(k,n-k)}=\sum_{t=1}^{\lfloor n/2\rfloor}\frac{1}{t}.
+\]
+For $n\ge 10$ we have the standard estimate $\sum_{t=1}^{\lfloor n/2\rfloor}\frac{1}{t}\le \log n$ (and the claimed bound may be checked directly for $2\le n\le 9$). Adding $|\widehat{f}(0)|=m/n\le 1$ proves the last claim.
+\end{proof}
+
+\subsection{Ramanujan sums} The Fourier estimates established in Lemma~\ref{lem:intervalFourier} provide control over the indicator functions of the intervals $I_{m_p}$ and $I_{m_q}$ in the frequency domain. However, because our counting function $S(p,q)$ involves a sum restricted to the units $a \in U_n$, the resulting expansion naturally gives rise to exponential sums over reduced residue systems. These sums, known as Ramanujan sums, play a vital role in our ability to detect number-theoretic obstructions. In this subsection, we recall their formal properties and establish specific vanishing conditions for prime powers, which will eventually allow us to show that the error terms in our expansion are small when the denominator $n$ possesses a large prime factor.
+
+For $t\in\Z$, define the Ramanujan sum
+\begin{equation}\label{Ramanujan}
+c_n(t):=\sum_{a\in U_n}\e^{2\pi i at/n}.
+\end{equation}
+These sums can be explicitly evaluated.
+
+\begin{lemma}[Ramanujan sums at prime powers]
+\label{lem:ramanujanPrimePower}
+Let $p$ be prime, $k\ge 1$, and write $v=v_p(t)$ (with the convention $v_p(0)=\infty$).
+Then
+\[
+c_{p^k}(t)=
+\begin{cases}
+0,& v\le k-2,\\
+-\,p^{k-1},& v= k-1,\\
+\varphi(p^k)=p^k-p^{k-1},& v\ge k.
+\end{cases}
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\zeta:=\e^{2\pi i/p^k}$.
+Write the sum over units as all residues minus those divisible by $p$:
+\[
+c_{p^k}(t)=\sum_{a=0}^{p^k-1}\zeta^{at}\;-\;\sum_{b=0}^{p^{k-1}-1}\zeta^{(pb)t}.
+\]
+The first geometric sum is $p^k$ if $p^k\mid t$ and $0$ otherwise.
+The second is $p^{k-1}$ if $p^{k-1}\mid t$ and $0$ otherwise.
+Therefore, we have:
+\begin{itemize}
+\item If $p^{k-1}\nmid t$ (i.e.\ $v\le k-2$), both sums vanish, so $c_{p^k}(t)=0$.
+\item If $p^{k-1}\mid t$ but $p^k\nmid t$ (i.e.\ $v=k-1$), then $c_{p^k}(t)=0-p^{k-1}=-p^{k-1}$.
+\item If $p^k\mid t$ (i.e.\ $v\ge k$), then $c_{p^k}(t)=p^k-p^{k-1}=\varphi(p^k)$.
+\end{itemize}
+\end{proof}
+
+\begin{lemma}[Multiplicativity]
+\label{lem:ramanujanMult}
+If $\gcd(n_1,n_2)=1$, then $c_{n_1n_2}(t)=c_{n_1}(t)c_{n_2}(t)$.
+\end{lemma}
+
+\begin{proof}
+This is standard and follows from the Chinese remainder theorem and the product decomposition of reduced residue systems modulo coprime moduli.
+\end{proof}
+
+\section{The main term and error term for {$S(p,q)$}}\label{Section4}
+
+\subsection{Fourier expansion of {$S(p,q)$}} 
+By applying the Fourier inversion formula to the indicator functions, we may represent the counting function $S(p,q)$ as a double sum involving the Ramanujan sums established. This expansion allows us to isolate the asymptotic main term, which represents the expected count of units in a random distribution, from the oscillatory error terms.
+
+Let $f_p:=1_{I_{m_p}}$ and $f_q:=1_{I_{m_q}}$.
+By Fourier inversion, we have
+\[
+f_p(ap)=\sum_{k=0}^{n-1}\widehat{f_p}(k)\e^{2\pi i k ap/n}
+\qquad and \qquad
+f_q(aq)=\sum_{\ell=0}^{n-1}\widehat{f_q}(\ell)\e^{2\pi i \ell a q/n}.
+\]
+Plugging into \eqref{eq:Sdef} gives
+\[
+S(p,q)=\sum_{k,\ell=0}^{n-1}\widehat{f_p}(k)\widehat{f_q}(\ell)\sum_{a\in U_n}\e^{2\pi i a(kp+\ell q)/n}.
+\]
+Thus, we have
+\begin{equation}
+\label{eq:Sexpansion}
+S(p,q)=\sum_{k,\ell=0}^{n-1}\widehat{f_p}(k)\widehat{f_q}(\ell)\,c_n(kp+\ell q).
+\end{equation}
+By splitting off the main term corresponding to $(k,\ell)=(0,0)$, we find that
+\[
+M(p,q):=\widehat{f_p}(0)\widehat{f_q}(0)c_n(0)=\frac{m_p}{n}\cdot\frac{m_q}{n}\cdot\varphi(n)
+=\frac{(2p-1)(2q-1)}{n^2}\varphi(n).
+\]
+In our work, we will need to control the remaining contribution, which we think of as the ``error term''
+\begin{equation}\label{Error}
+E(p,q):=S(p,q)-M(p,q).
+\end{equation}
+
+
+\section{Utility of large prime factors}\label{Section5}
+
+\subsection{Splitting the error term by {$P$}-adic valuation}\label{Subsection5.1}
+
+Recall the error term expansion
+\[
+E(p,q)=\sum_{\substack{0\le k,\ell\le n-1\\ (k,\ell)\ne (0,0)}}\widehat{f_p}(k)\widehat{f_q}(\ell)\,c_n(kp+\ell q).
+\]
+Let $P_0:=P^{\alpha-1}$. By Lemma~\ref{lem:ramanujanPrimePower}, we have
+\[
+c_{P^\alpha}(t)=0 \quad\text{whenever}\quad v_P(t)\le \alpha-2,
+\]
+equivalently,
+\[
+c_{P^\alpha}(t)=0 \quad\text{unless}\quad P^{\alpha-1}\mid t.
+\]
+(When $\alpha=1$ this condition is vacuous, since $P^{\alpha-1}=1$.)
+Hence, only pairs $(k,\ell)$ satisfying
+\begin{equation}\label{eq:congP0}
+kp+\ell q \equiv 0 \pmod{P_0}
+\end{equation}
+can contribute to $E(p,q)$ through the factor $c_{P^\alpha}(kp+\ell q)$.
+
+
+We further split the remaining terms according to whether $P^{\alpha}$ divides $kp+\ell q$:
+\[
+E(p,q)=E_{P_0}(p,q)+E_{P^{\alpha}}(p,q),
+\]
+where
+\[
+E_{P_0}(p,q):=\sum_{\substack{0\le k,\ell\le n-1\\ (k,\ell)\ne (0,0)\\ P_0\mid (kp+\ell q)\\ P^{\alpha}\nmid (kp+\ell q)}}\widehat{f_p}(k)\widehat{f_q}(\ell)\,c_n(kp+\ell q),
+\]
+and
+\[
+E_{P^{\alpha}}(p,q):=\sum_{\substack{0\le k,\ell\le n-1\\ (k,\ell)\ne (0,0)\\ P^{\alpha}\mid (kp+\ell q)}}\widehat{f_p}(k)\widehat{f_q}(\ell)\,c_n(kp+\ell q).
+\]
+
+For terms in $E_{P_0}(p,q)$, we have $v_P(kp+\ell q)=\alpha-1$, so Lemma~\ref{lem:ramanujanPrimePower} gives 
+$$|c_{P^{\alpha}}(kp+\ell q)|=P^{\alpha-1}.
+$$
+Therefore, we have
+\begin{equation}\label{eq:cnBoundLow}
+|c_n(kp+\ell q)|=|c_{P^{\alpha}}(kp+\ell q)\,c_m(kp+\ell q)|\le P^{\alpha-1}\varphi(m)=\frac{\varphi(n)}{P-1}.
+\end{equation}
+For terms in $E_{P^{\alpha}}(p,q)$, we use the trivial bound $|c_n(\cdot)|\le \varphi(n)$.
+
+\subsection{Bounding the restricted sum}\label{Subsection5.2}
+
+The congruence condition \eqref{eq:congP0} restricts $\ell$ to a single residue class modulo $P_0$ once $k$ is fixed, provided that $\gcd(q,P)=1$. Similarly, the condition $P^{\alpha}\mid(kp+\ell q)$ restricts $\ell$ to a residue class modulo $P^{\alpha}$. We use the following lemma to control the Fourier mass of short-interval indicators on such residue classes. 
+
+\begin{lemma}[Fourier mass in a residue class]
+\label{lem:sigmaResidue}
+Let $f=1_{I_m}$ with $1\le m\le n-1$ and let $d\mid n$.
+For any residue class $b\pmod d$, choose the representative $b\in\{0,1,\dots,d-1\}$ and define
+\[
+\Sigma_f(d;b):=\sum_{\substack{0\le \ell\le n-1\\ \ell\equiv b\ (d)}}|\widehat{f}(\ell)|.
+\]
+Then we have the pointwise bounds
+\[
+\Sigma_f(d;0)\le \frac{m}{n}+\frac{1+\log(n/d)}{d},
+\]
+and for $1\le b\le d-1$,
+\[
+\Sigma_f(d;b)\le \frac{1}{2b}+\frac{1}{2(d-b)}+\frac{1+\log(n/d)}{d}.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $n=dN$ where $N=n/d$, and write the elements of the residue class as
+\[
+\ell=b+jd,\qquad j=0,1,\dots,N-1.
+\]
+Let $J:=\left\lfloor \frac{n}{2d}\right\rfloor=\lfloor N/2\rfloor$ and let $H_J:=\sum_{j=1}^J \frac{1}{j}$
+(with the convention $H_0:=0$).
+
+By Lemma~\ref{lem:intervalFourier}, we have
+\[
+|\widehat f(0)|=\frac{m}{n},
+\qquad
+|\widehat f(\ell)|\le \frac{1}{2\min(\ell,n-\ell)}\quad(\ell\neq 0).
+\]
+We split the sum defining $\Sigma_f(d;b)$ into two ranges: $\ell\le n/2$ and $\ell>n/2$.
+
+\smallskip
+\noindent\emph{First range ($\ell\le n/2$).}
+If $b=0$, then the term $\ell=0$ contributes $m/n$. The remaining terms in this range are $\ell=jd$ with
+$1\le j\le J$, hence we have
+\[
+\sum_{\substack{\ell\equiv 0\ (d)\\ 1\le \ell\le n/2}}|\widehat f(\ell)|
+\le \sum_{j=1}^J \frac{1}{2jd}
+=\frac{H_J}{2d}.
+\]
+If $1\le b\le d-1$, then the term $j=0$ (i.e.\ $\ell=b$) contributes at most $1/(2b)$, and for $j\ge 1$ we have
+$b+jd\ge jd$, so we have
+\[
+\sum_{\substack{\ell\equiv b\ (d)\\ 1\le \ell\le n/2}}|\widehat f(\ell)|
+\le \frac{1}{2b}+\sum_{j=1}^J \frac{1}{2(b+jd)}
+\le \frac{1}{2b}+\sum_{j=1}^J \frac{1}{2jd}
+=\frac{1}{2b}+\frac{H_J}{2d}.
+\]
+
+\smallskip
+\noindent\emph{Second range ($\ell>n/2$).}
+Write $\ell=n-t$ with $1\le t<n/2$. Then $\min(\ell,n-\ell)=t$, and the congruence $\ell\equiv b\ (d)$ becomes
+$t\equiv -b\ (d)$.
+If $b=0$, then $t$ runs over the positive multiples of $d$, so $t=jd$ with $1\le j\le J$ and
+\[
+\sum_{\substack{\ell\equiv 0\ (d)\\ n/2<\ell\le n-1}}|\widehat f(\ell)|
+\le \sum_{j=1}^J \frac{1}{2jd}
+=\frac{H_J}{2d}.
+\]
+If $1\le b\le d-1$, then the smallest positive $t$ with $t\equiv -b\ (d)$ is $t_0=d-b$, contributing at most
+$1/(2(d-b))$, and the remaining terms have the form $t=t_0+jd\ge jd$ for $j\ge 1$. Hence, we have
+\[
+\sum_{\substack{\ell\equiv b\ (d)\\ n/2<\ell\le n-1}}|\widehat f(\ell)|
+\le \frac{1}{2(d-b)}+\sum_{j=1}^J \frac{1}{2(t_0+jd)}
+\le \frac{1}{2(d-b)}+\sum_{j=1}^J \frac{1}{2jd}
+=\frac{1}{2(d-b)}+\frac{H_J}{2d}.
+\]
+
+\smallskip
+Combining the two ranges gives
+\[
+\Sigma_f(d;0)\le \frac{m}{n}+\frac{H_J}{d},
+\qquad
+\Sigma_f(d;b)\le \frac{1}{2b}+\frac{1}{2(d-b)}+\frac{H_J}{d}\quad(1\le b\le d-1).
+\]
+Finally, using the standard bound $H_J\le 1+\log(1+J)\le 1+\log(N)=1+\log(n/d)$ completes the proof.
+\end{proof}
+
+\begin{proposition}[Error bound with a large prime factor]\label{prop:errorBound}
+Assume that $\gcd(q,P)=1$ and write $n=P^{\alpha}m$ with $\alpha:=v_P(n)\ge 1$ and $\gcd(P,m)=1$.
+Let $d:=P^{\alpha}$ and $P_0:=P^{\alpha-1}$.
+For any parameter $R\ge 2$, there exists a set $\mathcal B_q(R)\subseteq (\mathbb Z/d\mathbb Z)^\times$
+with
+\[
+|\mathcal B_q(R)|\le \frac{\varphi(d)}{R}
+\]
+such that whenever $\gcd(p,P)=1$ and $p \bmod d \notin \mathcal B_q(R)$, we have
+\[
+|E(p,q)| \le 9\,R\,\varphi(n)\frac{(1+\log n)^2}{P}.
+\]
+\end{proposition}
+
+\begin{proof}
+Recall the decomposition $E=E_{P_0}+E_{P^{\alpha}}$ from \S\ref{Subsection5.1}.
+
+\smallskip
+\noindent\emph{A crude bound for $E_{P_0}$.}
+Using \eqref{eq:cnBoundLow}, the congruence restriction \eqref{eq:congP0}, and the triangle inequality, we obtain
+\[
+|E_{P_0}(p,q)|
+\le \frac{\varphi(n)}{P-1}\sum_{k=0}^{n-1}|\widehat{f_p}(k)|\,
+\Sigma_{f_q}(P_0;b_k),
+\]
+where (since $\gcd(q,P)=1$) each $b_k\bmod P_0$ is the unique residue class with $kp+\ell q\equiv 0\pmod{P_0}$.
+For every residue class $b\bmod P_0$ we have the trivial bound
+$\Sigma_{f_q}(P_0;b)\le \sum_{\ell=0}^{n-1}|\widehat{f_q}(\ell)|$.
+By Lemma~\ref{lem:intervalFourier}, $\sum_{k=0}^{n-1}|\widehat{f_p}(k)|\le 1+\log n$ and
+$\sum_{\ell=0}^{n-1}|\widehat{f_q}(\ell)|\le 1+\log n$, hence
+\begin{equation}\label{eq:EP0crude}
+|E_{P_0}(p,q)|\le \frac{\varphi(n)}{P-1}(1+\log n)^2.
+\end{equation}
+
+\smallskip
+\noindent\emph{Reduction of $E_{P^\alpha}$ to a residue-class sum.}
+Set $d:=P^\alpha$. Using $|c_n(\cdot)|\le \varphi(n)$ and grouping by $k$, we have
+\[
+|E_{P^\alpha}(p,q)|
+\le \varphi(n)\sum_{k=0}^{n-1}|\widehat{f_p}(k)|
+\sum_{\substack{0\le \ell\le n-1\\ d\mid(kp+\ell q)\\ (k,\ell)\neq (0,0)}}|\widehat{f_q}(\ell)|.
+\]
+If $k=0$, then $d\mid \ell q$, and since $\gcd(q,P)=1$ we have $d\mid \ell$; moreover $\ell\neq 0$ because $(0,0)$
+is excluded. Hence the inner sum is $\sum_{1\le j\le n/d-1}|\widehat{f_q}(jd)|$.
+By Lemma~\ref{lem:sigmaResidue} (case $b=0$) and $|\widehat{f_q}(0)|=(2q-1)/n$, we have
+\begin{equation}\label{eq:multdTail_q}
+\sum_{1\le j\le n/d-1}|\widehat{f_q}(jd)|
+=\Sigma_{f_q}(d;0)-|\widehat{f_q}(0)|
+\le \frac{1+\log(n/d)}{d}.
+\end{equation}
+If $k\neq 0$, then the congruence $d\mid(kp+\ell q)$ forces $\ell$ to lie in a unique residue class
+$b_k\bmod d$, and we bound the inner sum by $\Sigma_{f_q}(d;b_k)$. Thus
+\begin{equation}\label{eq:EPalpha_basic}
+|E_{P^\alpha}(p,q)|
+\le \varphi(n)\Bigl(|\widehat{f_p}(0)|\frac{1+\log(n/d)}{d}
++\sum_{k=1}^{n-1}|\widehat{f_p}(k)|\,\Sigma_{f_q}(d;b_k)\Bigr).
+\end{equation}
+
+\smallskip
+\noindent\emph{Averaging over the unit $u\equiv -p q^{-1}\pmod d$.}
+Assume $\gcd(p,P)=1$ and let $q^{-1}$ denote the inverse of $q$ modulo $d$.
+Set $u\equiv -p\,q^{-1}\pmod d$, so $u\in U_d:=(\mathbb Z/d\mathbb Z)^\times$ and $b_k\equiv uk\pmod d$ for $k\ge 1$. Define the weight
+\[
+w(k):=\frac{1}{2\min(k,n-k)} \qquad (1\le k\le n-1),
+\]
+and set
+\[
+S(u):=\sum_{k=1}^{n-1} w(k)\,\Sigma_{f_q}(d;uk).
+\]
+By Lemma~\ref{lem:intervalFourier}, for every $k\ge 1$ we have $|\widehat{f_p}(k)|\le w(k)$, hence
+\[
+\sum_{k=1}^{n-1}|\widehat{f_p}(k)|\,\Sigma_{f_q}(d;uk)\ \le\ S(u).
+\]
+For $b\neq 0$, Lemma~\ref{lem:sigmaResidue} and $\frac{1}{2b}+\frac{1}{2(d-b)}\le \frac{1}{\min(b,d-b)}$ give
+\[
+\Sigma_{f_q}(d;b)\le \frac{1}{\min(b,d-b)}+\frac{1+\log(n/d)}{d}.
+\]
+Fix $k\in\{1,\dots,n-1\}$ with $d\nmid k$, write $k=P^{v}k'$ with $v=v_P(k)\le \alpha-1$ and $\gcd(k',P)=1$.
+As $u$ ranges over $U_d$, the residues $uk\bmod d$ range over
+$\{P^{v}t: t\in (\mathbb Z/P^{\alpha-v}\mathbb Z)^\times\}$, hence
+\[
+\frac{1}{|U_d|}\sum_{u\in U_d}\frac{1}{\min([uk]_d,d-[uk]_d)}
+=\frac{1}{\varphi(P^{\alpha-v})}\sum_{t\in (\mathbb Z/P^{\alpha-v}\mathbb Z)^\times}
+\frac{1}{P^{v}\min(t,P^{\alpha-v}-t)}
+\le \frac{4(1+\log n)}{d},
+\]
+using $\varphi(P^{\beta})\ge P^{\beta}/2$ for $P\ge 2$ and $\sum_{t\le M}\frac{1}{t}\le 1+\log M\le 1+\log n$.
+Therefore, for every $k$ with $d\nmid k$,
+\[
+\frac{1}{|U_d|}\sum_{u\in U_d}\Sigma_{f_q}(d;uk)\le \frac{5(1+\log n)}{d}.
+\]
+If $d\mid k$, then $uk\equiv 0 \pmod d$ for all $u$, and Lemma~\ref{lem:sigmaResidue} gives
+\[
+\Sigma_{f_q}(d;0)\le \frac{m_q}{n}+\frac{1+\log(n/d)}{d}\le 1+\frac{1+\log(n/d)}{d}.
+\]
+Moreover, applying Lemma~\ref{lem:sigmaResidue} to $f_p$ in the residue class $0$ shows that
+\begin{equation}\label{eq:multdTail_p}
+\sum_{1\le j\le n/d-1}|\widehat{f_p}(jd)|
+=\Sigma_{f_p}(d;0)-|\widehat{f_p}(0)|
+\le \frac{1+\log(n/d)}{d}.
+\end{equation}
+
+Combining these bounds and using $\sum_{k=1}^{n-1} w(k)\le 1+\log n$ and
+$$\sum_{1\le j\le n/d-1} w(jd)\le \frac{1+\log(n/d)}{d},
+$$
+we obtain
+\begin{equation}\label{eq:avgS}
+\frac{1}{|U_d|}\sum_{u\in U_d} S(u)\le \frac{6(1+\log n)^2}{d}.
+\end{equation}
+
+\smallskip
+\noindent
+\emph{Markov's inequality and conclusion.}
+Recall that for $k\ge 1$ the congruence $d\mid (kp+\ell q)$ forces $\ell$ to lie in the unique residue class
+$b_k\equiv uk\pmod d$, where $u\equiv -pq^{-1}\pmod d$ and $q^{-1}$ denotes the inverse of $q\bmod d$.
+Then \eqref{eq:EPalpha_basic} gives
+\[
+|E_{P^\alpha}(p,q)|\le \varphi(n)\left(\ |\widehat f_p(0)|\,\frac{1+\log(n/d)}{d}\;+\;S(u)\right).
+\]
+Then we let
+\[
+\mathfrak{B}_q(R)\ :=\ \left\{u\in U_d:\ S(u)>\frac{6R(1+\log n)^2}{d}\right\}.
+\]
+By \eqref{eq:avgS}, we have $|\mathfrak{B}_q(R)|\le |U_d|/R=\varphi(d)/R$.
+Since $\gcd(q,d)=1$, multiplication by $-q$ is a bijection of $U_d$, so define the corresponding
+exceptional set of residue classes for $p$ by
+\[
+\mathcal{B}_q(R)\ :=\ \{-qu \bmod d:\ u\in \mathfrak{B}_q(R)\}\ \subseteq\ (\mathbb{Z}/d\mathbb{Z})^\times.
+\]
+Then $|\mathcal{B}_q(R)|=|\mathfrak{B}_q(R)|\le \varphi(d)/R$, and for any $p$ with $\gcd(p,P)=1$,
+the element $u\equiv -pq^{-1}\pmod d$ satisfies $u\notin \mathfrak{B}_q(R)$ if and only if
+$p\bmod d\notin \mathcal{B}_q(R)$.
+
+If $p\bmod d\notin \mathcal{B}_q(R)$, then $u\notin \mathfrak{B}_q(R)$, and using $|\widehat f_p(0)|\le 1$ we obtain
+\begin{displaymath}
+\begin{split}
+&|E_{P^\alpha}(p,q)|\\
+&\ \ \ \ \ \ \ \ \ \ \le \varphi(n)\left(\frac{1+\log(n/d)}{d}+\frac{6R(1+\log n)^2}{d}\right)
+\le 7R\,\varphi(n)\frac{(1+\log n)^2}{d}
+\le 7R\,\varphi(n)\frac{(1+\log n)^2}{P}.
+\end{split}
+\end{displaymath}
+Finally, combining this with \eqref{eq:EP0crude} and using $\frac{1}{P-1}\le \frac{2}{P}$ (for $P\ge 2$) gives
+\[
+|E(p,q)|\le |E_{P_0}(p,q)|+|E_{P^\alpha}(p,q)|
+\le \left(2+7R\right)\varphi(n)\frac{(1+\log n)^2}{P}
+\le 9R\,\varphi(n)\frac{(1+\log n)^2}{P},
+\]
+since $R\ge 2$.
+\end{proof}
+
+\section{Main theorem}\label{Section6}
+
+\begin{theorem}\label{thm:main}
+Fix $\eta\in(0,1/6)$ and $\theta\in(0,1)$.
+There exists $N_0(\eta,\theta)$ such that for all $n\ge N_0(\eta,\theta)$ with largest prime factor
+$P:=P^+(n)\ge n^\theta$, the following holds.
+
+\smallskip\noindent
+For all but $o(1)$ proportion of pairs $(p,q)\in\mathcal{H}_n(\eta)$ with $\gcd(q,P)=1$
+(and hence for all but $o(1)$ proportion of all pairs in $\mathcal{H}_n(\eta)$),
+we have
+\[
+S(p,q)\ge 5.
+\]
+\end{theorem}
+
+\begin{proof}
+Write $n=P^{\alpha}m$ with $\alpha:=v_P(n)\ge 1$ and $\gcd(P,m)=1$, and set $d:=P^{\alpha}$.
+Let $R:=\lceil \log n\rceil\ge 2$.
+
+\smallskip\noindent
+\emph{Discarding a negligible exceptional set of pairs.}
+Fix $q$ with $\gcd(q,P)=1$. By Proposition~\ref{prop:errorBound}, there is a set
+$\mathcal B_q(R)\subseteq (\mathbb Z/d\mathbb Z)^\times$ with $|\mathcal B_q(R)|\le \varphi(d)/R$
+such that the error bound in Proposition~\ref{prop:errorBound} holds whenever $\gcd(p,P)=1$ and
+$p\bmod d\notin \mathcal B_q(R)$.
+
+Let $\mathcal E_n$ be the set of pairs $(p,q)\in\mathcal H_n(\eta)$ with $\gcd(q,P)=1$ for which either
+$P\mid p$ or $p\bmod d\in \mathcal B_q(R)$.
+For each fixed $q$, the constraint $p+q<\tfrac{n}{2}$ restricts $p$ to an interval of length $<n$.
+Hence the number of such $p$ with $P\mid p$ is $\ll n/P$.
+Moreover, each residue class modulo $d$ contributes $\ll n/d+1$ values of $p$ in this interval, so
+\[
+\#\{p:\ (p,q)\in\mathcal E_n\}\ \ll\ \frac{n}{P}+\frac{\varphi(d)}{R}\Bigl(\frac{n}{d}+1\Bigr)
+\ \ll\ \frac{n}{P}+\frac{n}{R},
+\]
+since $\varphi(d)\le d\le n$.
+Summing over all admissible $q$ (there are $\ll n$ of them) gives
+\begin{equation}\label{eq:En_bound}
+\#\mathcal E_n\ \ll\ n^2\Bigl(\frac{1}{P}+\frac{1}{R}\Bigr).
+\end{equation}
+
+To compare with $\#\mathcal H_n(\eta)$, first ignore the coprimality condition and let
+\[
+\mathcal R_n(\eta):=\{(p,q)\in\mathbb Z^2:\ \eta n\le p,q,\ p+q<\tfrac{n}{2}\}.
+\]
+Because $\eta<1/6$, the region $\mathcal R_n(\eta)$ contains $\gg_{\eta} n^2$ integer pairs (e.g.\ take
+$\eta n\le q\le n/3$ and $\eta n\le p\le n/2-q$).
+Now observe that $(p,q)\notin \mathcal H_n(\eta)$ with $(p,q)\in\mathcal R_n(\eta)$ implies
+there exists a prime $\ell\mid n$ with $\ell\mid p$ and $\ell\mid q$.
+For each such $\ell$, the number of pairs in $\mathcal R_n(\eta)$ with $\ell\mid p,q$ is
+$\ll_{\eta} n^2/\ell^2$, so we have the union bound
+$$\#\mathcal H_n(\eta)\gg_\eta n^2$$
+ for all sufficiently large $n$.
+(For example, choosing $\eta n\le q\le n/3$ and $\eta n\le p\le n/2-q$ already gives $\gg_\eta n^2$ pairs,
+and the coprimality condition $\gcd(p,q,n)=1$ removes only $O(n^2/\ell^2)$ pairs for each prime $\ell\mid n$,
+hence does not change the order of magnitude.)
+%
+%
+%****
+%\[
+%\#\mathcal H_n(\eta)\ \ge\ \#\mathcal R_n(\eta)\ -\ \sum_{\ell\mid n}\#\{(p,q)\in\mathcal R_n(\eta):\ \ell\mid p,\ \ell\mid q\}
+%\ \gg_{\eta}\ n^2,
+%\]
+%since $\sum_{\ell\mid n}\ell^{-2}\le \sum_{\text{primes }\ell}\ell^{-2}<\infty$.
+Combining with \eqref{eq:En_bound} gives
+\[
+\frac{\#\mathcal E_n}{\#\mathcal H_n(\eta)}\ \ll_{\eta}\ \frac{1}{P}+\frac{1}{R}
+\ =\ o(1)
+\qquad (n\to\infty),
+\]
+since $P\ge n^\theta\to\infty$ and $R=\lceil\log n\rceil\to\infty$.
+Thus it suffices to prove $S(p,q)\ge 5$ for pairs $(p,q)\in\mathcal H_n(\eta)$ with $\gcd(q,P)=1$
+outside $\mathcal E_n$.
+
+\smallskip\noindent
+\emph{Main term dominates the error term for the remaining pairs.}
+Fix $(p,q)\in\mathcal H_n(\eta)$ with $\gcd(q,P)=1$ and $(p,q)\notin\mathcal E_n$.
+Then $\gcd(p,P)=1$ and $p\bmod d\notin\mathcal B_q(R)$, so Proposition~\ref{prop:errorBound} yields
+\begin{equation}\label{eq:Ebound_thm6}
+|E(p,q)| \le 9R\,\varphi(n)\frac{(1+\log n)^2}{P},
+\end{equation}
+where we have taken
+$R=\lceil\log n\rceil$ in Proposition~\ref{prop:errorBound}.
+We also have the decomposition $S(p,q)=M(p,q)+E(p,q)$ with
+\[
+M(p,q)=\frac{(2p-1)(2q-1)}{n^2}\varphi(n).
+\]
+Since $p,q\ge \eta n$, for all sufficiently large $n$ we have $2p-1\ge \eta n$ and $2q-1\ge \eta n$, hence
+\[
+M(p,q)\ge \eta^2\,\varphi(n).
+\]
+As we have $R=\lceil\log n\rceil\le 1+\log n$ and $P\ge n^\theta$, the bound \eqref{eq:Ebound_thm6} implies
+\begin{equation}\label{eq:nice}
+|E(p,q)|\le 9\,\varphi(n)\frac{(1+\log n)^3}{n^\theta}.
+\end{equation}
+Therefore, for all sufficiently large $n$ (depending on $\eta$ and $\theta$),
+\[
+S(p,q)\ge \varphi(n)\left(\eta^2-9\frac{(1+\log n)^3}{n^\theta}\right)\ge \frac{\eta^2}{2}\,\varphi(n)\ge 5,
+\]
+since $\varphi(n)\to\infty$.
+\end{proof}
+
+\begin{theorem}[Analytic engine: a lower bound for $S(p,q)$]\label{thm:engine}
+If $\eta\in(0,1/6)$ and $\theta\in(0,1)$, then we have
+$$
+\lim_{\substack{n\rightarrow +\infty\\
+P^+(n)\geq n^{\theta}}} \frac{|\left \{ (p,q) \in \mathcal{H}_n(\eta) \ : \ \gcd\!\big(q,P^+(n)\big)=1  \ \ and \ \ S(p,q)<5\right\}|}{|\mathcal{H}_n(\eta)|}=0.
+$$
+\end{theorem}
+
+
+\end{document}

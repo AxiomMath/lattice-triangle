@@ -1,0 +1,72 @@
+
+\documentclass[12pt]{amsart}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+
+\newtheorem{theorem}{Theorem}[section]
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\C}{\mathrm{C}}
+\newcommand{\SL}{\mathrm{SL}}
+
+
+\begin{document}
+
+\section{Definition and Notation}
+We fix some notation for studying an obtuse regime away from the boundary.
+
+\subsection*{Truncated obtuse region}
+Fix $\eta\in(0,1/6)$. For $n\ge 1$, define the set of integer pairs
+\begin{equation}\label{eq:Hn}
+\mathcal H_n(\eta):=\{(p,q)\in\mathbb Z^2:\ \eta n\le p,q,\ \ p+q<\tfrac{n}{2},\ \gcd(p,q,n)=1\}.
+\end{equation}
+
+\subsection*{Largest prime divisor}
+Fix notation as follows. Let $P:=P^+(n)$ be the largest prime divisor of $n$, and write
+\[
+n=P^{\alpha}m,\qquad \alpha:=v_P(n)\ge 1,\qquad \gcd(P,m)=1.
+\]
+We also let
+\begin{equation}
+U_n:=\{a\in\{1,2,\dots,n\}:\ \gcd(a,n)=1\}
+\end{equation}
+be the reduced residue system modulo $n$.
+
+\subsection*{Least nonnegative residue}
+Write $[x]_n$ for the least nonnegative residue of $x$ modulo $n$.
+
+\subsection*{A counting function}
+We define the indicator of the interval $I_m:=\{1,2,\dots,m\}\subset\Z/n\Z$ by
+\[
+1_{I_m}(x):=
+\begin{cases}
+1,& 1\le [x]_n\le m,\\
+0,& \text{otherwise.}
+\end{cases}
+\]
+For $(p,q)\in\mathcal{H}_n(\eta)$, we define
+\[
+m_p:=2p-1\qquad and \qquad m_q:=2q-1,
+\]
+and the counting function (using indicator functions)
+\begin{equation}
+\label{eq:Sdef}
+S(p,q):=\sum_{a\in U_n} 1_{I_{m_p}}(ap)\,1_{I_{m_q}}(aq).
+\end{equation}
+
+\section{Main Theorem}
+
+
+\begin{theorem}[Analytic engine: a lower bound for $S(p,q)$]\label{thm:engine}
+If $\eta\in(0,1/6)$ and $\theta\in(0,1)$, then we have
+$$
+\lim_{\substack{n\rightarrow +\infty\\
+P^+(n)\geq n^{\theta}}} \frac{|\left \{ (p,q) \in \mathcal{H}_n(\eta) \ : \ \gcd\!\big(q,P^+(n)\big)=1  \ \ and \ \ S(p,q)<5\right\}|}{|\mathcal{H}_n(\eta)|}=0.
+$$
+\end{theorem}
+
+
+\end{document}
