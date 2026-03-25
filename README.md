@@ -4,16 +4,16 @@
 
 ## Input files
 
-- `.environment`: lean version
-- `task.md`: description of the task to be completed
-- `problem.tex`: informal problem statement
-- `informal_proof.tex`: draft of the proof by K.O. (which contained some
+- [`.environment`](input/.environment): lean version
+- [`task.md`](input/task.md): description of the task to be completed
+- [`problem.tex`](input/problem.tex): informal problem statement
+- [`informal_proof.tex`](input/informal_proof.tex): draft of the proof by K.O. (which contained some
   correctable mistakes)
 
 ## Output files (Run with Lean 4.26.0)
 
-- `LatticeTriangle/problem.lean`: translation of the problem statement into formal language (Lean)
-- `LatticeTriangle/solution.lean`: solution in formal language (Lean)
+- [`LatticeTriangle/problem.lean`](LatticeTriangle/problem.lean): translation of the problem statement into formal language (Lean)
+- [`LatticeTriangle/solution.lean`](LatticeTriangle/solution.lean): solution in formal language (Lean)
 
 ## License
 
