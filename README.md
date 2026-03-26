@@ -2,6 +2,8 @@
 
 # On the paucity of lattice triangles
 
+These files accompany the paper [arXiv:2603.23928](https://arxiv.org/abs/2603.23928).
+
 ## Input files
 
 - [`.environment`](input/.environment): lean version
