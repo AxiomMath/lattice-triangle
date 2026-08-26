@@ -1,0 +1,13 @@
+{
+  "challenge_module": "LatticeTriangle.problem",
+  "solution_module": "LatticeTriangle.solution",
+  "theorem_names": [
+    "analyticEngine_lower_bound"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": false
+}
