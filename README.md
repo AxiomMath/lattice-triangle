@@ -17,6 +17,14 @@ These files accompany the paper [arXiv:2603.23928](https://arxiv.org/abs/2603.23
 - [`LatticeTriangle/problem.lean`](LatticeTriangle/problem.lean): translation of the problem statement into formal language (Lean)
 - [`LatticeTriangle/solution.lean`](LatticeTriangle/solution.lean): solution in formal language (Lean)
 
+## Verifying with Comparator
+
+This repository can be verified against the formal problem statement with the Lean comparator on a Linux machine. First, follow the instructions in [https://github.com/leanprover/comparator](https://github.com/leanprover/comparator) to install comparator. Then, run the following command:
+
+```
+lake env comparator comparator.json
+```
+
 ## License
 
 This repository uses the MIT License. See [LICENSE](LICENSE) for details.
