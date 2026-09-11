@@ -567,7 +567,7 @@ lemma ncard_multiples_le (A B : ℤ) (m : ℕ) (hm : 0 < m) :
   calc ({x : ℤ | A ≤ x ∧ x ≤ B ∧ (m : ℤ) ∣ x}).ncard
       = ((fun x => ((x - A) / (m : ℤ)).toNat) ''
           {x : ℤ | A ≤ x ∧ x ≤ B ∧ (m : ℤ) ∣ x}).ncard := by
-        rw [Set.ncard_image_of_injOn h1]
+        rw [Set.InjOn.ncard_image h1]
     _ ≤ ((Finset.range ((Set.Icc A B).ncard / m + 1) : Set ℕ)).ncard := by
         exact Set.ncard_le_ncard h2 (Set.toFinite _)
     _ = (Set.Icc A B).ncard / m + 1 := by
@@ -1088,7 +1088,7 @@ lemma ncard_nonneg_multiples_ge (B : ℤ) (P : ℕ) (hP : 0 < P) (hB : 0 ≤ B) 
   calc B.toNat / P + 1
       = R.card := (Finset.card_range _).symm
     _ = (f '' ↑R).ncard := by
-        rw [Set.ncard_image_of_injOn hfinj, Set.ncard_coe_finset]
+        rw [Set.InjOn.ncard_image hfinj, Set.ncard_coe_finset]
     _ ≤ S.ncard := by
         apply Set.ncard_le_ncard
         · intro x hx
@@ -7555,7 +7555,6 @@ lemma markov_card_mul_le
       have : Finset.univ.filter (fun u : (ZMod d)ˣ => 0 < f u) = ∅ :=
         filter_empty_of_avg_zero d f hf (by simp_all) R
       convert this using 2
-      ext u
       simp [mul_zero]
     rw [hS_empty]
     simp

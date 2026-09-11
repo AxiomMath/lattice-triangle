@@ -12,7 +12,7 @@ These files accompany the paper [arXiv:2603.23928](https://arxiv.org/abs/2603.23
 - [`informal_proof.tex`](input/informal_proof.tex): draft of the proof by K.O. (which contained some
   correctable mistakes)
 
-## Output files (Run with Lean 4.26.0)
+## Output files (Run with Lean 4.34.0-rc2)
 
 - [`LatticeTriangle/problem.lean`](LatticeTriangle/problem.lean): translation of the problem statement into formal language (Lean)
 - [`LatticeTriangle/solution.lean`](LatticeTriangle/solution.lean): solution in formal language (Lean)
